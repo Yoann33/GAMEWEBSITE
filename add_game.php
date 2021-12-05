@@ -30,4 +30,3 @@ else
     ));
     header("Location: add_game.php");
 }
-?>
