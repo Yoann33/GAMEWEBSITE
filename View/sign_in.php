@@ -8,7 +8,7 @@
     <title>Sign up</title>
 </head>
 <body>
-    <header><h1><a href="/www/GAMEWEBSITE/index.php?contoler_files=games">GAMEWEBSITE</a></h1></header>
+    <header><h1><a href="/www/GAMEWEBSITE/index.php?controler_file=games">GAMEWEBSITE</a></h1></header>
     <form action="/www/GAMEWEBSITE/index.php?controler_file=sign_in" method="post" class="formular">
         <label for="email">Your email</label>
         <input type="email" name="email" id="email" placeholder="Enter your email">

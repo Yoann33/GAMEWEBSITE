@@ -27,6 +27,7 @@ if(isset($_POST["email"],$_POST["password"]))
                     "role" => $account["role"],
                     "downloaded_games" => unserialize(base64_decode($account["downloaded_games"]))
                 ];
+                $_GET["controler_file"] = "games";
                 require_once 'games.php';
             }
         }

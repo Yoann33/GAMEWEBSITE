@@ -1,10 +1,9 @@
 <?php
-
 if(isset($_GET["answere"]))
 {
     if($_GET["answere"] == "no")
     {
-        header("Location: /www/GAMEWEBSITE/index.php.?controler_file=".$_GET["current_file"]);
+        header("Location: /www/GAMEWEBSITE/index.php.?controler_file=games");
     }
     else
     {
@@ -20,6 +19,6 @@ if(isset($_GET["answere"]))
 }
 else
 {
-    require_once 'Controler/'.$_GET["current_file"].".php";
     require_once 'View/popup.php';
 }
+require_once 'games.php';
