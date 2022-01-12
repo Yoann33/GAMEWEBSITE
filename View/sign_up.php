@@ -8,8 +8,8 @@
     <title>Sign up</title>
 </head>
 <body>
-    <header><h1><a href="/www/GAMEWEBSITE/index.php?controler_file=games">GAMEWEBSITE</a></h1></header>
-    <form action="/www/GAMEWEBSITE/index.php?controler_file=sign_up" method="post" class="formular">
+    <header><h1><a href=<?php echo $filePath."?controler_file=games";?>>BROWSERGAMES</a></h1></header>
+    <form action=<?php echo $filePath."?controler_file=sign_up";?> method="post" class="formular">
         <label for="email">Your email</label>
         <input type="email" name="email" id="email" placeholder="an.example@email.com">
         <label for="password">Choose pseudo</label>

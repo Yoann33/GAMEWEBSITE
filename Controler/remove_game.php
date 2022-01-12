@@ -1,28 +1,31 @@
 <?php
-$downloadedGames = [];
-foreach($_SESSION["user"]["downloaded_games"] as $downloadedGame)
+$user = $_SESSION["user"];
+$newSetOfGames = [];
+$userDownloadedGames = $user["downloaded_games"];
+foreach($userDownloadedGames as $downloadedGame)
 {
-    if($_GET["game_name"] != $downloadedGame)
+    if($gameName != $downloadedGame)
     {
-        array_push($downloadedGames,$downloadedGame);
+        array_push($newSetOfGames,$downloadedGame);
     }
 }
 
-if(count($downloadedGames) == 0)
-{
-    $downloadedGames = ["none"];
-}
-
-$_SESSION["user"]["downloaded_games"] = $downloadedGames;
-
-$downloadedGames = base64_encode(serialize($downloadedGames));
+$_SESSION["user"]["downloaded_games"] = $newSetOfGames;
 
 require_once 'connect_db.php';
-$update = $db->prepare("UPDATE accounts SET downloaded_games=:downloaded_games WHERE id=:id");
-$update->execute(array(
-    "id" => $_SESSION["user"]["id"],
-    "downloaded_games" => $downloadedGames
+
+$query = $db->prepare("SELECT * FROM games WHERE name=:name");
+$query->execute(array(
+    "name" => $gameName
 ));
-$update->closeCursor();
+$gameId = $query->fetchAll();
+$gameId = $gameId[0]["id"];
+$query->closeCursor();
+
+$delete = $db->prepare("DELETE FROM favorites WHERE game_id=:game_id");
+$delete->execute(array(
+    "game_id" => $gameId
+));
+$delete->closeCursor();
 
 require_once 'Controler/my_account.php';

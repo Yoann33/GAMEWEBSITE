@@ -1,8 +1,8 @@
 <?php
-//Initie la connexion avec la base de donnée MVCexample.
+//Initie la connexion avec la base de donnée.
 try
 {
-    $db=new PDO('mysql:host=localhost;dbname=GW_DB','root','');
+    $db=new PDO('mysql:host=localhost;dbname=gw_db','root','');
 }
 catch(Exception $e)
 {

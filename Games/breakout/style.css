@@ -2,7 +2,7 @@
     position: absolute;
     width: 1000px;
     height: 500px;
-    left: 400px;
+    left: auto;
     border: 1px solid black;
 }
 

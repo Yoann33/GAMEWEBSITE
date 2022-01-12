@@ -1,23 +1,28 @@
 <?php
 require_once 'connect_db.php';
 
-if($_SESSION["user"]["downloaded_games"][0] == "none")
-{
-    $_SESSION["user"]["downloaded_games"][0] = $_GET["game_name"];
-}
-else
-{
-    array_push($_SESSION["user"]["downloaded_games"],$_GET["game_name"]);
-}
+$user = $_SESSION["user"];
+$userId = $user["id"];
+$userSetOfGames = $user["downloaded_games"];
 
-$downloadedGames = $_SESSION["user"]["downloaded_games"];
+//Selection of game id of witch must be added
+$query = $db->prepare("SELECT * FROM games WHERE name=:name");
+$query->execute(array(
+    "name" => $gameName
+));
+$gameId = $query->fetchAll();
+$gameId = $gameId[0]["id"];
+$query->closeCursor();
 
-$downloadedGames = base64_encode(serialize($downloadedGames));
+//Insertion of the new favorite
+$insert = $db->prepare("INSERT INTO favorites (user_id,game_id) VALUES(:user_id,:game_id)");
+$insert->execute(array(
+    "user_id" => $userId,
+    "game_id" => $gameId
+));
 
-$prepare = $db->prepare("UPDATE accounts SET downloaded_games=:downloaded_games WHERE id=:id");
-$prepare->bindParam(':downloaded_games',$downloadedGames,PDO::PARAM_STR);
-$prepare->bindParam(':id',$_SESSION["user"]["id"],PDO::PARAM_INT);
-$prepare->execute();
-$prepare->closeCursor();
+//Updating the session list of downoloaded games
+array_push($userSetOfGames,$gameName);
+$_SESSION["user"]["downloaded_games"] = $userSetOfGames;
 
 require_once 'Controler/game_description.php';

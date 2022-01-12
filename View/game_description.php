@@ -10,23 +10,33 @@
 <body>
     <?php include 'header.php';?>
     <div class="game">
-        <h2><?php echo strtoupper(substr($_GET["game_name"],0,1)).substr($_GET["game_name"],1);?></h2>
-        <img class="gameCover" src=<?php echo $game["img_url"]?> alt="game cover" height="200px" width="200px"></img>
-        <?php
-        if(isset($_SESSION["user"]))
-        {
-            $class = "open";
-            if($buttonMessage == "Game obtained")
+        <div>
+            <h2><?php echo strtoupper(substr($gameName,0,1)).substr($gameName,1);?></h2>
+            <img class="gameCover" src=<?php echo $dirPath."/Games/".$gameName."/img.png";?> alt="game cover" height="200px" width="200px"></img>
+            <?php
+            if(isset($_SESSION["user"]))
             {
-                $class = "close";
+                $class = "open";
+                if($buttonMessage == "Game obtained")
+                {
+                    $class = "close";
+                    ?>
+                    <div class="options">
+                        <a class=<?php echo $class;?> href=<?php echo $path;?>><?php echo $buttonMessage;?></a>
+                    </div>
+                    <?php
+                }
+                else
+                {
+                    ?>
+                    <div class="options">
+                        <a class=<?php echo $class;?> href=<?php echo $path;?>><?php echo $buttonMessage;?></a>
+                    </div>
+                    <?php
+                }
             }
             ?>
-                <div class="options">
-                    <a class=<?php echo $class;?> href=<?php echo $path;?>><?php echo $buttonMessage;?></a>
-                </div>
-            <?php
-        }
-        ?>
+        </div>
         <div class="description">
             <p><?php echo $game["description"];?></p>
         </div>

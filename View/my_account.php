@@ -10,22 +10,22 @@
 <body>
     <?php include 'header.php';?>
     <div class="infos">
-        <h3><?php echo strtoupper(substr($_SESSION["user"]["role"],0,1)).substr($_SESSION["user"]["role"],1).": ".$_SESSION["user"]["pseudo"]."<br/>Email: ".$_SESSION["user"]["email"]."<hr>"?></h3>
+        <h3><?php echo strtoupper(substr($userRole,0,1)).substr($userRole,1).": ".$userPseudo."<br/>Email: ".$userEmail."<hr>"?></h3>
     </div>
     <?php
-    $downloadedGames = $_SESSION["user"]["downloaded_games"];
-
-    if($downloadedGames[0] != "none")
+    if(count($userDownloadedGames) != 0)
     {
-        foreach($downloadedGames as $key => $downloadedGame)
+        foreach($userDownloadedGames as $downloadedGame)
         {
             ?>
             <div class="game">
-                <h2><?php echo strtoupper(substr($downloadedGame,0,1)).substr($downloadedGame,1);?></h2>
-                <img class="gameImg" src=<?php echo "/www/GAMEWEBSITE/Games/".$downloadedGame."/img.png";?>></img>
-                <div class="options">
-                    <a class="open" href=<?php echo "/www/GAMEWEBSITE/Games/".$downloadedGame."/";?>>Open</a>
-                    <a class="remove" href=<?php echo "/www/GAMEWEBSITE/index.php?controler_file=remove_game&game_name=".$downloadedGame;?>>Remove</a>
+                <div>
+                    <h2><?php echo strtoupper(substr($downloadedGame,0,1)).substr($downloadedGame,1);?></h2>
+                    <img class="gameImg" src=<?php echo $dirPath."/Games/".$downloadedGame."/img.png";?>></img>
+                    <div class="options">
+                        <a class="open" href=<?php echo $dirPath."/Games/".$downloadedGame."/";?>>Open</a>
+                        <a class="remove" href=<?php echo $filePath."?controler_file=remove_game&game_name=".$downloadedGame;?>>Remove</a>
+                    </div>
                 </div>
                 <div class="description">
                     <p>

@@ -1,15 +1,7 @@
 <?php
-function user_verification_existence($password)
+function user_verification_existence($password,$email)
 {
-    try
-    {
-        $db=new PDO('mysql:host=localhost;dbname=GW_DB','root','');
-    }
-    catch(Exception $e)
-    {
-        die('Error : '.$e->getMessage());
-    }
-    
+    global $db;
     $query = $db->query("SELECT * FROM accounts");
     $accounts = $query->fetchAll();
     $query->closeCursor();
@@ -18,7 +10,7 @@ function user_verification_existence($password)
     {
         foreach($accounts as $account)
         {
-            if(password_verify($password,$account["password"]))
+            if(password_verify($password,$account["password"]) && $email == $account["email"])
             {
                 return true;
             }
